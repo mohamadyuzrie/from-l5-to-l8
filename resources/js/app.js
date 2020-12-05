@@ -5,3 +5,6 @@ require('admin-lte')
 
 // using POST on a <a> tag
 require('jquery-ujs');
+
+// use datatables
+require('datatables.net-bs4')

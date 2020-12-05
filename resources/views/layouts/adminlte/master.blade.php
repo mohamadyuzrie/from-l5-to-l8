@@ -16,6 +16,7 @@
     {{-- <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css"> --}}
     <!-- Our CSS -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini">

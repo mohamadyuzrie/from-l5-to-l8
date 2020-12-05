@@ -7,7 +7,7 @@
 </a>
 <div class="card mt-3">
     <div class="card-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="resources-table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -40,3 +40,7 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    $('#resources-table').DataTable()
+@endpush

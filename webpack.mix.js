@@ -11,5 +11,8 @@ const mix = require('laravel-mix');
  |
  */
 
+// using datatables
+mix.copy('node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css', 'public/css/dataTables.bootstrap4.min.css');
+
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
