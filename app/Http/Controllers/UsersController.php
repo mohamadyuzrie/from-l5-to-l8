@@ -14,7 +14,7 @@ class UsersController extends Controller
      * route: users-yajra
      * name: users-yajra
      * */
-    public function yajra()
+    public function yajra(Request $request)
     {
         $resources = User::all();
 
@@ -135,35 +135,31 @@ class UsersController extends Controller
 
     /**
      * AJAX | POST
-     * route: users.datatable
-     * url: users-datatable
+     * route: users.datatable.manual
+     * name: users.datatable.manual
      */
-    public function datatable(Request $request)
+    public function manualDatatable(Request $request)
     {
         $limit = $request['length'];
         $offset = $request['start'];
 
-        $datatable_query = "
-            SELECT COUNT(*) as count FROM users
-        ";
-        $count_query = DB::select(DB::raw($datatable_query))[0];
+        $count_query = "SELECT COUNT(*) AS count FROM users";
+        $count = DB::select(DB::raw($count_query))[0]->count;
 
         $data_query = "
-            SELECT id, name, email FROM users
-            ORDER BY name
-            LIMIT {$offset}, {$limit}
+            SELECT * FROM users
+            LIMIT {$offset},{$limit}
         ";
         $data = DB::select(DB::raw($data_query));
-
         foreach ($data as $index => $resource) {
-            $data[$index]->actions = '<a href="'.route('users.edit', $resource->id).'" class="btn btn-success px-3">Edit</button>';
+            $resource->actions = '<a href="'.route('users.edit', $resource->id).'" class="btn btn-success px-3">Edit</button>';
         }
 
         return json_encode([
             'draw' => $request['draw'],
-            'recordsTotal' => $count_query->count,
-            'recordsFiltered' => $count_query->count,
             'data' => $data,
+            'recordsTotal' => $count,
+            'recordsFiltered' => $count,
         ]);
     }
 }

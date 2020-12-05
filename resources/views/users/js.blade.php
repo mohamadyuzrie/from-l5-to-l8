@@ -1,7 +1,7 @@
 let resourceDatatable = $('#resources-table').DataTable({
     serverSide: true,
     processing: true,
-    ajax: { url: $('#resources-table').data('route') },
+    ajax: { url: $('#resources-table').data('route'), 'method': 'POST' },
     columns: [
         { data: 'name', name: 'name' },
         { data: 'email', name: 'email' },
