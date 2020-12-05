@@ -1,9 +1,2 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="card">
-    <div class="card-body">
-        Welcome
-    </div>
-</div>
-@endsection
+@extends('layouts.adminlte.master')
+@section('top-bar-header', 'Header')
