@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('home', 'home')->name('home');
 
+    Route::post('users-datatable', [UsersController::class, 'datatable'])->name('users.datatable');
     Route::post('users-list', [UsersController::class, 'list'])->name('users.list');
     Route::resource('users', UsersController::class);
 });

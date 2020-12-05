@@ -7,7 +7,7 @@
 </a>
 <div class="card mt-3">
     <div class="card-body">
-        <table class="table table-bordered" id="resources-table">
+        <table class="table table-bordered" id="resources-table" data-route="{{ route('users.datatable') }}">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -15,32 +15,11 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($resources as $resource)
-                <tr>
-                    <td>{{ $resource->name }}</td>
-                    <td>{{ $resource->email }}</td>
-                    <td class="text-center">
-                        <a href="{{ route('users.edit', $resource->id) }}" class="btn btn-success">
-                            <i class="fas fa-edit pr-2"></i>
-                            Edit
-                        </a>
-                        @if (Auth::id() != $resource->id)
-                        <a href="{{ route('users.destroy', $resource->id) }}" class="btn btn-danger btn-delete"
-                            data-method="delete" data-confirm="Confirm delete {{ $resource->name }}?">
-                            <i class="fas fa-trash pr-2"></i>
-                            Delete
-                        </a>
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
         </table>
     </div>
 </div>
 @endsection
 
 @push('scripts')
-    $('#resources-table').DataTable()
+    @include('users.js')
 @endpush

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use DB;
 use App\Models\User;
 
 class UsersController extends Controller
@@ -14,10 +16,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $data = [];
-        $data['resources'] = User::all();
-
-        return view('users.index', $data);
+        return view('users.index');
     }
 
     /**
@@ -115,5 +114,39 @@ class UsersController extends Controller
         $data = User::where('name', 'like', "%{$request['keyword']}%")->get();
 
         return response()->json($data);
+    }
+
+    /**
+     * AJAX | POST
+     * route: users.datatable
+     * url: users-datatable
+     */
+    public function datatable(Request $request)
+    {
+        $limit = $request['length'];
+        $offset = $request['start'];
+
+        $datatable_query = "
+            SELECT COUNT(*) as count FROM users
+        ";
+        $count_query = DB::select(DB::raw($datatable_query))[0];
+
+        $data_query = "
+            SELECT id, name, email FROM users
+            ORDER BY name
+            LIMIT {$offset}, {$limit}
+        ";
+        $data = DB::select(DB::raw($data_query));
+
+        foreach ($data as $index => $resource) {
+            $data[$index]->actions = '<a href="'.route('users.edit', $resource->id).'" class="btn btn-success px-3">Edit</button>';
+        }
+
+        return json_encode([
+            'draw' => $request['draw'],
+            'recordsTotal' => $count_query->count,
+            'recordsFiltered' => $count_query->count,
+            'data' => $data,
+        ]);
     }
 }
