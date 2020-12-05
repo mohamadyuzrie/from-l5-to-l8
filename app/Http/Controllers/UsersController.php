@@ -4,11 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use DB;
+use DB, DataTables;
 use App\Models\User;
 
 class UsersController extends Controller
 {
+    /**
+     * AJAX | GET
+     * route: users-yajra
+     * name: users-yajra
+     * */
+    public function yajra()
+    {
+        $resources = User::all();
+
+        return DataTables::of($resources)
+            ->addColumn('actions', function ($resource) {
+                return '<a href="'.route('users.edit', $resource->id).'" class="btn btn-success px-3">Edit</button>';
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
     /**
      * Display a listing of the resource.
      *

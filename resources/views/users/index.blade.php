@@ -7,7 +7,7 @@
 </a>
 <div class="card mt-3">
     <div class="card-body">
-        <table class="table table-bordered" id="resources-table" data-route="{{ route('users.datatable') }}">
+        <table class="table table-bordered" id="resources-table" data-route="{{ route('users.yajra') }}">
             <thead>
                 <tr>
                     <th>Name</th>
