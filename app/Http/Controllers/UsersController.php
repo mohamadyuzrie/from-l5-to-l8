@@ -104,4 +104,16 @@ class UsersController extends Controller
 
         return redirect()->back();
     }
+
+    /**
+     * AJAX | POST
+     * route: users.list
+     * url: users-list
+     */
+    public function list(Request $request)
+    {
+        $data = User::where('name', 'like', "%{$request['keyword']}%")->get();
+
+        return response()->json($data);
+    }
 }
