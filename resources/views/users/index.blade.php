@@ -25,6 +25,13 @@
                             <i class="fas fa-edit pr-2"></i>
                             Edit
                         </a>
+                        @if (Auth::id() != $resource->id)
+                        <a href="{{ route('users.destroy', $resource->id) }}" class="btn btn-danger btn-delete"
+                            data-method="delete" data-confirm="Confirm delete {{ $resource->name }}?">
+                            <i class="fas fa-trash pr-2"></i>
+                            Delete
+                        </a>
+                        @endif
                     </td>
                 </tr>
                 @endforeach

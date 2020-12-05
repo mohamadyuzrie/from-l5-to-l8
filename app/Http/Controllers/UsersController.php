@@ -39,7 +39,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $user = User::create([
-            'name' => $request['email'],
+            'name' => $request['name'],
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
         ]);
@@ -56,7 +56,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -82,7 +82,13 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $resource = User::findOrFail($id);
+        $resource->update([
+            'email' => $request['email'],
+            'name' => $request['name']
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -93,6 +99,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $resource = User::findOrFail($id);
+        $resource->delete();
+
+        return redirect()->back();
     }
 }
