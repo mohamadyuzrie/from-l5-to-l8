@@ -17,3 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('api-test', function() {
+    $todo = [
+        [
+            'title' => 'title 1',
+            'description' => 'description 1',
+        ],[
+            'title' => 'title 2',
+            'description' => 'description 2',
+        ]
+    ];
+    return response()->json([$todo]);
+});
