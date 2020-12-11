@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +20,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('api-test', function() {
-    $todo = [
+    $data = [];
+    $data['todo'] = [
         [
             'title' => 'title 1',
             'description' => 'description 1',
+            'page' => 1,
         ],[
             'title' => 'title 2',
             'description' => 'description 2',
         ]
     ];
-    return response()->json([$todo]);
+    $data['title'] = 'My awesome title';
+
+    return response()->json($data);
+});
+
+Route::post('api-test-post', function(Request $request) {
+    $user = new User();
+    $user->name = $request['name'];
+
+    return response()->json($user);
 });

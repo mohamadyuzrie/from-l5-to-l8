@@ -22,6 +22,9 @@
             <li class="name-template d-none"></li>
         </ul>
     </div>
+    <div class="card-footer">
+        @include('pretty-button')
+    </div>
 </div>
 @endsection
 
