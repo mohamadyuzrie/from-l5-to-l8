@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use App\Http\Controllers\APIExampleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,8 @@ Route::post('api-test-post', function(Request $request) {
 
     return response()->json($user);
 });
+
+Route::post('login', [APIExampleController::class, 'login']);
+Route::post('check-token', [APIExampleController::class, 'checkToken']);
+Route::post('logout', [APIExampleController::class, 'logout']);
+
